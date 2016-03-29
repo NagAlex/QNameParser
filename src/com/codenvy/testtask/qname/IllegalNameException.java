@@ -1,22 +1,27 @@
-/*
+/**
  * Class: IllegalNameException
  * Version: 1.0
  * Copyright(c) March 2016 Cherkassy, Ukraine
- * Author: Nekora Alexander
+ * @author: Nekora Alexander
  */
 
 package com.codenvy.testtask.qname;
 
+/**
+ * This exception is thrown when trying to parse an object of type QName with invalid string 
+ */
 public class IllegalNameException extends Exception {
-	/**
-	 *  Default serial version
-	 */
+	
+	/* Default serial version */
 	static final long serialVersionUID = 1L;
 	
 	public IllegalNameException() {
 		super();
 	}
 	
+	/**
+	 * Constructor with own message 
+	 */
 	public IllegalNameException(String name) {
 		super("Illegal value. String \"" + name + "\" can't be converted to type QName.");
 	}
