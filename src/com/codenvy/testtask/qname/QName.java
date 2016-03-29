@@ -35,4 +35,8 @@ public class QName {
 		return new QNameParser().parse(name);
 	}
 	
+	public boolean equals(QName qName) {
+		return (getAsString().equals(qName.getAsString()));
+	}
+	
 }
