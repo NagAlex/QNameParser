@@ -19,18 +19,18 @@ class QNameParser {
 	/**
 	 * Pattern to check onecharsimplename rule 
 	 */
-	private Pattern simpleNamePattern = Pattern.compile("[\\S&&[^./:\\[\\]*\'\"|]]");
+	private static final Pattern SIMPLE_NAME_PATTERN = Pattern.compile("[\\S&&[^./:\\[\\]*\'\"|]]");
 	
 	/**
 	 * Pattern for prefix rule. In combination with method prefixRule() checks for
 	 * valid XML names
 	 * */
-	private Pattern xmlNames = Pattern.compile("_?\\p{Alpha}+[\\p{Alnum}-_.]*");
+	private static final Pattern XML_NAMES = Pattern.compile("_?\\p{Alpha}+[\\p{Alnum}-_.]*");
 	
 	/**
 	 * Pattern for nonspace rule 
 	 */
-	private Pattern nonspace = Pattern.compile("[\\S&&[^/:\\[\\]*\'\"|]]");
+	private static final Pattern NONSPACE = Pattern.compile("[\\S&&[^/:\\[\\]*\'\"|]]");
 
 	/**
 	 * Checks all the rules of valid qualified name and constructs 
@@ -110,7 +110,7 @@ class QNameParser {
 	 * @return true if the oneCharSimpleName is valid  
 	 */
 	private boolean oneCharSimpleNameRule(String oneCharSimpleName) {
-		Matcher simpleNameMatcher = simpleNamePattern.matcher(oneCharSimpleName);
+		Matcher simpleNameMatcher = SIMPLE_NAME_PATTERN.matcher(oneCharSimpleName);
 		return simpleNameMatcher.matches();
 	}
 
@@ -186,7 +186,7 @@ class QNameParser {
 				return false;			
 			}
 		}
-		Matcher xmlNamesMatcher = xmlNames.matcher(prefix);
+		Matcher xmlNamesMatcher = XML_NAMES.matcher(prefix);
 		return xmlNamesMatcher.matches();
 	}
 
@@ -221,7 +221,7 @@ class QNameParser {
 	 * @return true if the nonSpaceString is valid  
 	 */
 	private boolean nonSpaceRule(String nonSpaceString) {
-		Matcher nonspaceMatcher = nonspace.matcher(nonSpaceString);
+		Matcher nonspaceMatcher = NONSPACE.matcher(nonSpaceString);
 		return (nonspaceMatcher.matches());
 	}
 
