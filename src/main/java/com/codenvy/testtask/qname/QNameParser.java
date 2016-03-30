@@ -15,7 +15,22 @@ import java.util.regex.*;
  * Uses the rules of BNF format
  * Uses java.util.regex package for verification 
  */
-public class QNameParser {
+class QNameParser {
+	/**
+	 * Pattern to check onecharsimplename rule 
+	 */
+	private Pattern simpleNamePattern = Pattern.compile("[\\S&&[^./:\\[\\]*\'\"|]]");
+	
+	/**
+	 * Pattern for prefix rule. In combination with method prefixRule() checks for
+	 * valid XML names
+	 * */
+	private Pattern xmlNames = Pattern.compile("_?\\p{Alpha}+[\\p{Alnum}-_.]*");
+	
+	/**
+	 * Pattern for nonspace rule 
+	 */
+	private Pattern nonspace = Pattern.compile("[\\S&&[^/:\\[\\]*\'\"|]]");
 
 	/**
 	 * Checks all the rules of valid qualified name and constructs 
@@ -95,7 +110,6 @@ public class QNameParser {
 	 * @return true if the oneCharSimpleName is valid  
 	 */
 	private boolean oneCharSimpleNameRule(String oneCharSimpleName) {
-		Pattern simpleNamePattern = Pattern.compile("[\\S&&[^./:\\[\\]*\'\"|]]");
 		Matcher simpleNameMatcher = simpleNamePattern.matcher(oneCharSimpleName);
 		return simpleNameMatcher.matches();
 	}
@@ -172,7 +186,6 @@ public class QNameParser {
 				return false;			
 			}
 		}
-		Pattern xmlNames = Pattern.compile("_?\\p{Alpha}+[\\p{Alnum}-_.]*");
 		Matcher xmlNamesMatcher = xmlNames.matcher(prefix);
 		return xmlNamesMatcher.matches();
 	}
@@ -201,14 +214,13 @@ public class QNameParser {
 	}
 
 	/**
-	 * checks the rule <pre> nonspace ::= (* Any unicode character except:
+	 * checks the rule <pre> nonspace ::= (* Any Unicode character except:
 	 * 								   '/', ':', '[', ']', '*', ''', '"', 
 	 * 								   '|' or any whitespace character *) </pre>
 	 * @param nonSpaceString string to be checked
 	 * @return true if the nonSpaceString is valid  
 	 */
 	private boolean nonSpaceRule(String nonSpaceString) {
-		Pattern nonspace = Pattern.compile("[\\S&&[^/:\\[\\]*\'\"|]]");
 		Matcher nonspaceMatcher = nonspace.matcher(nonSpaceString);
 		return (nonspaceMatcher.matches());
 	}
