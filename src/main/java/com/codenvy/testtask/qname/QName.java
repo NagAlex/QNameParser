@@ -16,6 +16,7 @@ package com.codenvy.testtask.qname;
 public class QName {
 	private String prefix;
 	private String localName;
+	private static QNameParser qNameParser = new QNameParser();
 	
 	public void setPrefix(String prefix) {
 		this.prefix = prefix;
@@ -53,7 +54,7 @@ public class QName {
 	 * @throws IllegalNameException if parameter is not valid   
 	 */
 	public static QName parse(String name) throws IllegalNameException {
-		return new QNameParser().parse(name);
+		return qNameParser.parse(name);
 	}
 	
 	/**
