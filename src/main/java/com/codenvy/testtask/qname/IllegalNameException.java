@@ -22,7 +22,7 @@ public class IllegalNameException extends Exception {
 	/**
 	 * Constructor with own message 
 	 */
-	public IllegalNameException(String name) {
-		super("Illegal value. String \"" + name + "\" can't be converted to type QName.");
+	public IllegalNameException(String message) {
+		super(message);
 	}
 }

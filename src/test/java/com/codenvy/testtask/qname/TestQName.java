@@ -124,6 +124,58 @@ public class TestQName {
 		QName.parse("fghj:p:oiy");
 	}
 	
+	@Test
+	public void testEqualsSameObject() throws IllegalNameException{
+		QName qName = QName.parse("prefix:name");
+		assertTrue(qName.equals(qName));
+	}
 	
+	@Test
+	public void testEqualsNullObject() throws IllegalNameException{
+		QName qName = QName.parse("prefix:name");
+		QName qName1 = null;
+		assertFalse(qName.equals(qName1));
+	}
 
+	@Test
+	public void testEqualsEqualObject() throws IllegalNameException{
+		QName qName = QName.parse("prefix:name");
+		QName qName1 = QName.parse("prefix:name");
+		assertTrue(qName.equals(qName1));
+	}
+	
+	@Test
+	public void testEqualsObjectPrefixIsNull() throws IllegalNameException{
+		QName qName = QName.parse("name");
+		QName qName1 = QName.parse("prefix:name");
+		assertFalse(qName.equals(qName1));
+	}
+
+	@Test
+	public void testEqualsComparableObjectPrefixIsNull() throws IllegalNameException{
+		QName qName = QName.parse("prefix:name");
+		QName qName1 = QName.parse("name");
+		assertFalse(qName.equals(qName1));
+	}
+	
+	@Test
+	public void testEqualsObjectsWithoutPrefixes() throws IllegalNameException{
+		QName qName = QName.parse("name");
+		QName qName1 = QName.parse("name");
+		assertTrue(qName.equals(qName1));
+	}
+	
+	@Test
+	public void testEqualsNotQName() throws IllegalNameException{
+		QName qName = QName.parse("prefix:name");
+		String qName1 = "prefix:name";
+		assertFalse(qName.equals(qName1));
+	}
+	
+	@Test
+	public void testHashCode() throws IllegalNameException{
+		QName qName = QName.parse("_r37.prefix:localname");
+		int testHash = ("_r37.prefix".hashCode()) ^ ("localname".hashCode());
+		assertTrue("Hashes should be equal", testHash == qName.hashCode());
+	}
 }
